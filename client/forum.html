@@ -1,0 +1,38 @@
+<head>
+<title>Forum</title>
+</head>
+
+<body>
+<div class="wrapper">
+  <div>
+    {{loginButtons}}
+  </div>
+  {{#if currentUser}}
+  <div>
+    {{> make_post}}
+  </div>
+  {{/if}}
+  {{> posts}}
+</div>
+</body>
+
+<template name="make_post">
+<input class='js-post-input' type="text" value="Add text here.." />
+<button type="button" class='js-create-post'>Create Post!</button>
+</template>
+
+<template name="posts">
+<h1>Posts</h1>
+{{#if posts.count}}
+<ul>
+  {{#each posts}}
+  <li>{{name}}</li>
+  {{#if ownsPost owner_id}}
+  <button data-id="{{_id}}" type="button" class='js-destroy-post'>Destroy</button>
+  {{/if}}
+  {{/each}}
+</ul>
+{{else}}
+<h1>no posts!</h1>
+{{/if}}
+</template>
