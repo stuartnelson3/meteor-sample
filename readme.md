@@ -1,1 +1,1 @@
-experimenting with meteor.js. building twitter.
+experimenting with meteor.js.
