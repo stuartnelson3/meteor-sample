@@ -50,11 +50,15 @@ Template.login.events({
     options.email = t.find('#login-email').value;
     options.password = t.find('#login-password').value;
 
-    Accounts.createUser(options, function(err) {
-      if (err) {
-        alert(err);
-      }
-    });
+    if (options.email && options.password && options.password.length > 5) {
+      Accounts.createUser(options, function(err) {
+        if (err) {
+          alert(err);
+        }
+      });
+    } else {
+      alert('please enter a valid email and password');
+    }
   },
 
   'click .js-logout' : function(e) {
