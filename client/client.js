@@ -1,7 +1,3 @@
-Accounts.ui.config({
-  passwordSignupFields: 'USERNAME_AND_EMAIL'
-})
-
 Template.posts.helpers({
   posts: function() {
     return Posts.find()
@@ -29,5 +25,43 @@ Template.make_post.events({
 
   'focus .js-post-input': function(e) {
     e.target.value = ''
+  }
+})
+
+Template.login.events({
+  'submit #login-form' : function(e, t) {
+    e.preventDefault();
+
+    var email = t.find('#login-email').value
+      , password = t.find('#login-password').value;
+
+    Meteor.loginWithPassword(email, password, function(err) {
+      if (err) {
+        alert('there was an error in your attempt, please try again')
+      }
+      else {
+        // do successful login stuff here
+      }
+    })
+  },
+
+  'click #create-account' : function(e, t) {
+    var options = {};
+    options.email = t.find('#login-email').value;
+    options.password = t.find('#login-password').value;
+
+    Accounts.createUser(options, function(err) {
+      if (err) {
+        alert(err);
+      }
+    });
+  },
+
+  'click .js-logout' : function(e) {
+    Meteor.logout(function(err) {
+      if (err) {
+        alert('there was an error, oops')
+      }
+    })
   }
 })
